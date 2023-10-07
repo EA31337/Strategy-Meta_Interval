@@ -1,6 +1,6 @@
 /**
  * @file
- * Implements Time meta strategy.
+ * Implements Interval meta strategy.
  */
 
 // Includes conditional compilation directives.
@@ -34,13 +34,13 @@ input ENUM_LOG_LEVEL Log_Level = V_INFO;  // Log level.
 input bool Info_On_Chart = true;          // Display info on chart.
 
 // Includes strategy class.
-#include "Stg_Meta_Time.mqh"
+#include "Stg_Meta_Interval.mqh"
 
 // Defines.
-#define ea_name "Strategy Meta Time"
+#define ea_name "Strategy Meta Interval"
 #define ea_version "2.000"
-#define ea_desc "Meta strategy to run different strategies in the different market time zones."
-#define ea_link "https://github.com/EA31337/Strategy-Meta_Time"
+#define ea_desc "Meta strategy to run different strategy at given minute-based intervals."
+#define ea_link "https://github.com/EA31337/Strategy-Meta_Interval"
 #define ea_author "EA31337 Ltd"
 
 // Properties.
@@ -66,7 +66,7 @@ int OnInit() {
   bool _result = true;
   EAParams ea_params(__FILE__, Log_Level);
   ea = new EA(ea_params);
-  _result &= ea.StrategyAdd<Stg_Meta_Time>(Active_Tfs);
+  _result &= ea.StrategyAdd<Stg_Meta_Interval>(Active_Tfs);
   return (_result ? INIT_SUCCEEDED : INIT_FAILED);
 }
 

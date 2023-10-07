@@ -1,71 +1,71 @@
 /**
  * @file
- * Implements Time meta strategy.
+ * Implements Interval meta strategy.
  */
 
 // Prevents processing this includes file multiple times.
-#ifndef STG_META_TIME_MQH
-#define STG_META_TIME_MQH
+#ifndef STG_META_INTERVAL_MQH
+#define STG_META_INTERVAL_MQH
 
 // User input params.
-INPUT2_GROUP("Meta Time strategy: main params");
-INPUT2 ENUM_STRATEGY Meta_Time_Strategy_Main = STRAT_OSCILLATOR_RANGE;      // Main strategy
-INPUT2 ENUM_STRATEGY Meta_Time_Strategy_Interval = STRAT_OSCILLATOR_RANGE;  // Interval strategy
-INPUT2 uint Meta_Time_Strategy_MinutesEach = 15;                            // Interval per minute
-INPUT2 uint Meta_Time_Strategy_MinutesAfter = 5;                            // Minutes after interval
-INPUT2 uint Meta_Time_Strategy_MinutesBefore = 5;                           // Minutes before interval
-INPUT3_GROUP("Meta Time strategy: common params");
-INPUT3 float Meta_Time_LotSize = 0;                // Lot size
-INPUT3 int Meta_Time_SignalOpenMethod = 0;         // Signal open method
-INPUT3 float Meta_Time_SignalOpenLevel = 0;        // Signal open level
-INPUT3 int Meta_Time_SignalOpenFilterMethod = 32;  // Signal open filter method
-INPUT3 int Meta_Time_SignalOpenFilterTime = 3;     // Signal open filter time (0-31)
-INPUT3 int Meta_Time_SignalOpenBoostMethod = 0;    // Signal open boost method
-INPUT3 int Meta_Time_SignalCloseMethod = 0;        // Signal close method
-INPUT3 int Meta_Time_SignalCloseFilter = 32;       // Signal close filter (-127-127)
-INPUT3 float Meta_Time_SignalCloseLevel = 0;       // Signal close level
-INPUT3 int Meta_Time_PriceStopMethod = 1;          // Price limit method
-INPUT3 float Meta_Time_PriceStopLevel = 2;         // Price limit level
-INPUT3 int Meta_Time_TickFilterMethod = 32;        // Tick filter method (0-255)
-INPUT3 float Meta_Time_MaxSpread = 4.0;            // Max spread to trade (in pips)
-INPUT3 short Meta_Time_Shift = 0;                  // Shift
-INPUT3 float Meta_Time_OrderCloseLoss = 200;       // Order close loss
-INPUT3 float Meta_Time_OrderCloseProfit = 200;     // Order close profit
-INPUT3 int Meta_Time_OrderCloseTime = 720;         // Order close time in mins (>0) or bars (<0)
+INPUT2_GROUP("Meta Interval strategy: main params");
+INPUT2 ENUM_STRATEGY Meta_Interval_Strategy_Main = STRAT_OSCILLATOR_RANGE;      // Main strategy
+INPUT2 ENUM_STRATEGY Meta_Interval_Strategy_Interval = STRAT_OSCILLATOR_RANGE;  // Interval strategy
+INPUT2 uint Meta_Interval_Strategy_MinutesEach = 15;                            // Interval per minute
+INPUT2 uint Meta_Interval_Strategy_MinutesAfter = 5;                            // Minutes after interval
+INPUT2 uint Meta_Interval_Strategy_MinutesBefore = 5;                           // Minutes before interval
+INPUT3_GROUP("Meta Interval strategy: common params");
+INPUT3 float Meta_Interval_LotSize = 0;                // Lot size
+INPUT3 int Meta_Interval_SignalOpenMethod = 0;         // Signal open method
+INPUT3 float Meta_Interval_SignalOpenLevel = 0;        // Signal open level
+INPUT3 int Meta_Interval_SignalOpenFilterMethod = 32;  // Signal open filter method
+INPUT3 int Meta_Interval_SignalOpenFilterTime = 3;     // Signal open filter time (0-31)
+INPUT3 int Meta_Interval_SignalOpenBoostMethod = 0;    // Signal open boost method
+INPUT3 int Meta_Interval_SignalCloseMethod = 0;        // Signal close method
+INPUT3 int Meta_Interval_SignalCloseFilter = 32;       // Signal close filter (-127-127)
+INPUT3 float Meta_Interval_SignalCloseLevel = 0;       // Signal close level
+INPUT3 int Meta_Interval_PriceStopMethod = 1;          // Price limit method
+INPUT3 float Meta_Interval_PriceStopLevel = 2;         // Price limit level
+INPUT3 int Meta_Interval_TickFilterMethod = 32;        // Tick filter method (0-255)
+INPUT3 float Meta_Interval_MaxSpread = 4.0;            // Max spread to trade (in pips)
+INPUT3 short Meta_Interval_Shift = 0;                  // Shift
+INPUT3 float Meta_Interval_OrderCloseLoss = 200;       // Order close loss
+INPUT3 float Meta_Interval_OrderCloseProfit = 200;     // Order close profit
+INPUT3 int Meta_Interval_OrderCloseTime = 720;         // Order close time in mins (>0) or bars (<0)
 
 // Structs.
 
 // Defines struct with default user strategy values.
-struct Stg_Meta_Time_Params_Defaults : StgParams {
-  Stg_Meta_Time_Params_Defaults()
-      : StgParams(::Meta_Time_SignalOpenMethod, ::Meta_Time_SignalOpenFilterMethod, ::Meta_Time_SignalOpenLevel,
-                  ::Meta_Time_SignalOpenBoostMethod, ::Meta_Time_SignalCloseMethod, ::Meta_Time_SignalCloseFilter,
-                  ::Meta_Time_SignalCloseLevel, ::Meta_Time_PriceStopMethod, ::Meta_Time_PriceStopLevel,
-                  ::Meta_Time_TickFilterMethod, ::Meta_Time_MaxSpread, ::Meta_Time_Shift) {
-    Set(STRAT_PARAM_LS, ::Meta_Time_LotSize);
-    Set(STRAT_PARAM_OCL, ::Meta_Time_OrderCloseLoss);
-    Set(STRAT_PARAM_OCP, ::Meta_Time_OrderCloseProfit);
-    Set(STRAT_PARAM_OCT, ::Meta_Time_OrderCloseTime);
-    Set(STRAT_PARAM_SOFT, ::Meta_Time_SignalOpenFilterTime);
+struct Stg_Meta_Interval_Params_Defaults : StgParams {
+  Stg_Meta_Interval_Params_Defaults()
+      : StgParams(::Meta_Interval_SignalOpenMethod, ::Meta_Interval_SignalOpenFilterMethod, ::Meta_Interval_SignalOpenLevel,
+                  ::Meta_Interval_SignalOpenBoostMethod, ::Meta_Interval_SignalCloseMethod, ::Meta_Interval_SignalCloseFilter,
+                  ::Meta_Interval_SignalCloseLevel, ::Meta_Interval_PriceStopMethod, ::Meta_Interval_PriceStopLevel,
+                  ::Meta_Interval_TickFilterMethod, ::Meta_Interval_MaxSpread, ::Meta_Interval_Shift) {
+    Set(STRAT_PARAM_LS, ::Meta_Interval_LotSize);
+    Set(STRAT_PARAM_OCL, ::Meta_Interval_OrderCloseLoss);
+    Set(STRAT_PARAM_OCP, ::Meta_Interval_OrderCloseProfit);
+    Set(STRAT_PARAM_OCT, ::Meta_Interval_OrderCloseTime);
+    Set(STRAT_PARAM_SOFT, ::Meta_Interval_SignalOpenFilterTime);
   }
 };
 
-class Stg_Meta_Time : public Strategy {
+class Stg_Meta_Interval : public Strategy {
  protected:
   DictStruct<long, Ref<Strategy>> strats;
 
  public:
-  Stg_Meta_Time(StgParams &_sparams, TradeParams &_tparams, ChartParams &_cparams, string _name = "")
+  Stg_Meta_Interval(StgParams &_sparams, TradeParams &_tparams, ChartParams &_cparams, string _name = "")
       : Strategy(_sparams, _tparams, _cparams, _name) {}
 
-  static Stg_Meta_Time *Init(ENUM_TIMEFRAMES _tf = NULL, EA *_ea = NULL) {
+  static Stg_Meta_Interval *Init(ENUM_TIMEFRAMES _tf = NULL, EA *_ea = NULL) {
     // Initialize strategy initial values.
-    Stg_Meta_Time_Params_Defaults stg_meta_time_defaults;
-    StgParams _stg_params(stg_meta_time_defaults);
+    Stg_Meta_Interval_Params_Defaults stg_meta_interval_defaults;
+    StgParams _stg_params(stg_meta_interval_defaults);
     // Initialize Strategy instance.
     ChartParams _cparams(_tf, _Symbol);
     TradeParams _tparams;
-    Strategy *_strat = new Stg_Meta_Time(_stg_params, _tparams, _cparams, "(Meta) Time");
+    Strategy *_strat = new Stg_Meta_Interval(_stg_params, _tparams, _cparams, "(Meta) Time");
     return _strat;
   }
 
@@ -73,8 +73,8 @@ class Stg_Meta_Time : public Strategy {
    * Event on strategy's init.
    */
   void OnInit() {
-    StrategyAdd(Meta_Time_Strategy_Main, 0);
-    StrategyAdd(Meta_Time_Strategy_Interval, 1);
+    StrategyAdd(Meta_Interval_Strategy_Main, 0);
+    StrategyAdd(Meta_Interval_Strategy_Interval, 1);
   }
 
   /**
@@ -337,4 +337,4 @@ class Stg_Meta_Time : public Strategy {
   }
 };
 
-#endif  // STG_META_TIME_MQH
+#endif  // STG_META_INTERVAL_MQH

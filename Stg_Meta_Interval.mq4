@@ -6,8 +6,8 @@
 
 /**
  * @file
- * Implements Time meta strategy.
+ * Implements Interval meta strategy.
  */
 
 // Includes the main code.
-#include "Stg_Meta_Time.mq5"
+#include "Stg_Meta_Interval.mq5"
