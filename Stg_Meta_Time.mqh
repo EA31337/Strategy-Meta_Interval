@@ -1,72 +1,71 @@
 /**
  * @file
- * Implements Weekday meta strategy.
+ * Implements Time meta strategy.
  */
 
 // Prevents processing this includes file multiple times.
-#ifndef STG_META_WEEKDAY_MQH
-#define STG_META_WEEKDAY_MQH
+#ifndef STG_META_TIME_MQH
+#define STG_META_TIME_MQH
 
 // User input params.
-INPUT2_GROUP("Meta Weekday strategy: main params");
-INPUT2 ENUM_STRATEGY Meta_Weekday_Strategy_1_Monday = STRAT_OSCILLATOR_RANGE;   // Monday's strategy
-INPUT2 ENUM_STRATEGY Meta_Weekday_Strategy_2_Tuesday = STRAT_OSCILLATOR_RANGE;  // Tuesday's strategy
-INPUT2 ENUM_STRATEGY Meta_Weekday_Strategy_3_Wednesday = STRAT_MA_CROSS_PIVOT;  // Wednesday's strategy
-INPUT2 ENUM_STRATEGY Meta_Weekday_Strategy_4_Thursday = STRAT_MA_CROSS_SHIFT;   // Thursday's strategy
-INPUT2 ENUM_STRATEGY Meta_Weekday_Strategy_5_Friday = STRAT_DEMARKER;           // Friday's strategy
-INPUT2_GROUP("Meta Weekday strategy: common params");
-INPUT2 float Meta_Weekday_LotSize = 0;                // Lot size
-INPUT2 int Meta_Weekday_SignalOpenMethod = 0;         // Signal open method
-INPUT2 float Meta_Weekday_SignalOpenLevel = 0;        // Signal open level
-INPUT2 int Meta_Weekday_SignalOpenFilterMethod = 32;  // Signal open filter method
-INPUT2 int Meta_Weekday_SignalOpenFilterTime = 3;     // Signal open filter time (0-31)
-INPUT2 int Meta_Weekday_SignalOpenBoostMethod = 0;    // Signal open boost method
-INPUT2 int Meta_Weekday_SignalCloseMethod = 0;        // Signal close method
-INPUT2 int Meta_Weekday_SignalCloseFilter = 32;       // Signal close filter (-127-127)
-INPUT2 float Meta_Weekday_SignalCloseLevel = 0;       // Signal close level
-INPUT2 int Meta_Weekday_PriceStopMethod = 1;          // Price limit method
-INPUT2 float Meta_Weekday_PriceStopLevel = 2;         // Price limit level
-INPUT2 int Meta_Weekday_TickFilterMethod = 32;        // Tick filter method (0-255)
-INPUT2 float Meta_Weekday_MaxSpread = 4.0;            // Max spread to trade (in pips)
-INPUT2 short Meta_Weekday_Shift = 0;                  // Shift
-INPUT2 float Meta_Weekday_OrderCloseLoss = 200;       // Order close loss
-INPUT2 float Meta_Weekday_OrderCloseProfit = 200;     // Order close profit
-INPUT2 int Meta_Weekday_OrderCloseTime = 720;         // Order close time in mins (>0) or bars (<0)
+INPUT2_GROUP("Meta Time strategy: main params");
+INPUT2 ENUM_STRATEGY Meta_Time_Strategy_1_Monday = STRAT_OSCILLATOR_RANGE;   // Monday's strategy
+INPUT2 ENUM_STRATEGY Meta_Time_Strategy_2_Tuesday = STRAT_OSCILLATOR_RANGE;  // Tuesday's strategy
+INPUT2 ENUM_STRATEGY Meta_Time_Strategy_3_Wednesday = STRAT_MA_CROSS_PIVOT;  // Wednesday's strategy
+INPUT2 ENUM_STRATEGY Meta_Time_Strategy_4_Thursday = STRAT_MA_CROSS_SHIFT;   // Thursday's strategy
+INPUT2 ENUM_STRATEGY Meta_Time_Strategy_5_Friday = STRAT_DEMARKER;           // Friday's strategy
+INPUT2_GROUP("Meta Time strategy: common params");
+INPUT2 float Meta_Time_LotSize = 0;                // Lot size
+INPUT2 int Meta_Time_SignalOpenMethod = 0;         // Signal open method
+INPUT2 float Meta_Time_SignalOpenLevel = 0;        // Signal open level
+INPUT2 int Meta_Time_SignalOpenFilterMethod = 32;  // Signal open filter method
+INPUT2 int Meta_Time_SignalOpenFilterTime = 3;     // Signal open filter time (0-31)
+INPUT2 int Meta_Time_SignalOpenBoostMethod = 0;    // Signal open boost method
+INPUT2 int Meta_Time_SignalCloseMethod = 0;        // Signal close method
+INPUT2 int Meta_Time_SignalCloseFilter = 32;       // Signal close filter (-127-127)
+INPUT2 float Meta_Time_SignalCloseLevel = 0;       // Signal close level
+INPUT2 int Meta_Time_PriceStopMethod = 1;          // Price limit method
+INPUT2 float Meta_Time_PriceStopLevel = 2;         // Price limit level
+INPUT2 int Meta_Time_TickFilterMethod = 32;        // Tick filter method (0-255)
+INPUT2 float Meta_Time_MaxSpread = 4.0;            // Max spread to trade (in pips)
+INPUT2 short Meta_Time_Shift = 0;                  // Shift
+INPUT2 float Meta_Time_OrderCloseLoss = 200;       // Order close loss
+INPUT2 float Meta_Time_OrderCloseProfit = 200;     // Order close profit
+INPUT2 int Meta_Time_OrderCloseTime = 720;         // Order close time in mins (>0) or bars (<0)
 
 // Structs.
 
 // Defines struct with default user strategy values.
-struct Stg_Meta_Weekday_Params_Defaults : StgParams {
-  Stg_Meta_Weekday_Params_Defaults()
-      : StgParams(::Meta_Weekday_SignalOpenMethod, ::Meta_Weekday_SignalOpenFilterMethod,
-                  ::Meta_Weekday_SignalOpenLevel, ::Meta_Weekday_SignalOpenBoostMethod,
-                  ::Meta_Weekday_SignalCloseMethod, ::Meta_Weekday_SignalCloseFilter, ::Meta_Weekday_SignalCloseLevel,
-                  ::Meta_Weekday_PriceStopMethod, ::Meta_Weekday_PriceStopLevel, ::Meta_Weekday_TickFilterMethod,
-                  ::Meta_Weekday_MaxSpread, ::Meta_Weekday_Shift) {
-    Set(STRAT_PARAM_LS, ::Meta_Weekday_LotSize);
-    Set(STRAT_PARAM_OCL, ::Meta_Weekday_OrderCloseLoss);
-    Set(STRAT_PARAM_OCP, ::Meta_Weekday_OrderCloseProfit);
-    Set(STRAT_PARAM_OCT, ::Meta_Weekday_OrderCloseTime);
-    Set(STRAT_PARAM_SOFT, ::Meta_Weekday_SignalOpenFilterTime);
+struct Stg_Meta_Time_Params_Defaults : StgParams {
+  Stg_Meta_Time_Params_Defaults()
+      : StgParams(::Meta_Time_SignalOpenMethod, ::Meta_Time_SignalOpenFilterMethod, ::Meta_Time_SignalOpenLevel,
+                  ::Meta_Time_SignalOpenBoostMethod, ::Meta_Time_SignalCloseMethod, ::Meta_Time_SignalCloseFilter,
+                  ::Meta_Time_SignalCloseLevel, ::Meta_Time_PriceStopMethod, ::Meta_Time_PriceStopLevel,
+                  ::Meta_Time_TickFilterMethod, ::Meta_Time_MaxSpread, ::Meta_Time_Shift) {
+    Set(STRAT_PARAM_LS, ::Meta_Time_LotSize);
+    Set(STRAT_PARAM_OCL, ::Meta_Time_OrderCloseLoss);
+    Set(STRAT_PARAM_OCP, ::Meta_Time_OrderCloseProfit);
+    Set(STRAT_PARAM_OCT, ::Meta_Time_OrderCloseTime);
+    Set(STRAT_PARAM_SOFT, ::Meta_Time_SignalOpenFilterTime);
   }
 };
 
-class Stg_Meta_Weekday : public Strategy {
+class Stg_Meta_Time : public Strategy {
  protected:
   DictStruct<long, Ref<Strategy>> strats;
 
  public:
-  Stg_Meta_Weekday(StgParams &_sparams, TradeParams &_tparams, ChartParams &_cparams, string _name = "")
+  Stg_Meta_Time(StgParams &_sparams, TradeParams &_tparams, ChartParams &_cparams, string _name = "")
       : Strategy(_sparams, _tparams, _cparams, _name) {}
 
-  static Stg_Meta_Weekday *Init(ENUM_TIMEFRAMES _tf = NULL, EA *_ea = NULL) {
+  static Stg_Meta_Time *Init(ENUM_TIMEFRAMES _tf = NULL, EA *_ea = NULL) {
     // Initialize strategy initial values.
-    Stg_Meta_Weekday_Params_Defaults stg_meta_weekday_defaults;
-    StgParams _stg_params(stg_meta_weekday_defaults);
+    Stg_Meta_Time_Params_Defaults stg_meta_time_defaults;
+    StgParams _stg_params(stg_meta_time_defaults);
     // Initialize Strategy instance.
     ChartParams _cparams(_tf, _Symbol);
     TradeParams _tparams;
-    Strategy *_strat = new Stg_Meta_Weekday(_stg_params, _tparams, _cparams, "(Meta) Weekday");
+    Strategy *_strat = new Stg_Meta_Time(_stg_params, _tparams, _cparams, "(Meta) Time");
     return _strat;
   }
 
@@ -74,11 +73,11 @@ class Stg_Meta_Weekday : public Strategy {
    * Event on strategy's init.
    */
   void OnInit() {
-    StrategyAdd(Meta_Weekday_Strategy_1_Monday, 1);
-    StrategyAdd(Meta_Weekday_Strategy_2_Tuesday, 2);
-    StrategyAdd(Meta_Weekday_Strategy_3_Wednesday, 3);
-    StrategyAdd(Meta_Weekday_Strategy_4_Thursday, 4);
-    StrategyAdd(Meta_Weekday_Strategy_5_Friday, 5);
+    StrategyAdd(Meta_Time_Strategy_1_Monday, 1);
+    StrategyAdd(Meta_Time_Strategy_2_Tuesday, 2);
+    StrategyAdd(Meta_Time_Strategy_3_Wednesday, 3);
+    StrategyAdd(Meta_Time_Strategy_4_Thursday, 4);
+    StrategyAdd(Meta_Time_Strategy_5_Friday, 5);
   }
 
   /**
@@ -333,4 +332,4 @@ class Stg_Meta_Weekday : public Strategy {
   }
 };
 
-#endif  // STG_META_WEEKDAY_MQH
+#endif  // STG_META_TIME_MQH

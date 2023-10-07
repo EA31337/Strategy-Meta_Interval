@@ -6,7 +6,7 @@
 
 /**
  * @file
- * Implements Weekday meta strategy.
+ * Implements Time meta strategy.
  */
 
 // Includes the main code.
