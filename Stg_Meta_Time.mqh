@@ -9,29 +9,29 @@
 
 // User input params.
 INPUT2_GROUP("Meta Time strategy: main params");
-INPUT2 ENUM_STRATEGY Meta_Time_Strategy_1_Monday = STRAT_OSCILLATOR_RANGE;   // Monday's strategy
-INPUT2 ENUM_STRATEGY Meta_Time_Strategy_2_Tuesday = STRAT_OSCILLATOR_RANGE;  // Tuesday's strategy
-INPUT2 ENUM_STRATEGY Meta_Time_Strategy_3_Wednesday = STRAT_MA_CROSS_PIVOT;  // Wednesday's strategy
-INPUT2 ENUM_STRATEGY Meta_Time_Strategy_4_Thursday = STRAT_MA_CROSS_SHIFT;   // Thursday's strategy
-INPUT2 ENUM_STRATEGY Meta_Time_Strategy_5_Friday = STRAT_DEMARKER;           // Friday's strategy
-INPUT2_GROUP("Meta Time strategy: common params");
-INPUT2 float Meta_Time_LotSize = 0;                // Lot size
-INPUT2 int Meta_Time_SignalOpenMethod = 0;         // Signal open method
-INPUT2 float Meta_Time_SignalOpenLevel = 0;        // Signal open level
-INPUT2 int Meta_Time_SignalOpenFilterMethod = 32;  // Signal open filter method
-INPUT2 int Meta_Time_SignalOpenFilterTime = 3;     // Signal open filter time (0-31)
-INPUT2 int Meta_Time_SignalOpenBoostMethod = 0;    // Signal open boost method
-INPUT2 int Meta_Time_SignalCloseMethod = 0;        // Signal close method
-INPUT2 int Meta_Time_SignalCloseFilter = 32;       // Signal close filter (-127-127)
-INPUT2 float Meta_Time_SignalCloseLevel = 0;       // Signal close level
-INPUT2 int Meta_Time_PriceStopMethod = 1;          // Price limit method
-INPUT2 float Meta_Time_PriceStopLevel = 2;         // Price limit level
-INPUT2 int Meta_Time_TickFilterMethod = 32;        // Tick filter method (0-255)
-INPUT2 float Meta_Time_MaxSpread = 4.0;            // Max spread to trade (in pips)
-INPUT2 short Meta_Time_Shift = 0;                  // Shift
-INPUT2 float Meta_Time_OrderCloseLoss = 200;       // Order close loss
-INPUT2 float Meta_Time_OrderCloseProfit = 200;     // Order close profit
-INPUT2 int Meta_Time_OrderCloseTime = 720;         // Order close time in mins (>0) or bars (<0)
+INPUT2 ENUM_STRATEGY Meta_Time_Strategy_Main = STRAT_OSCILLATOR_RANGE;      // Main strategy
+INPUT2 ENUM_STRATEGY Meta_Time_Strategy_Interval = STRAT_OSCILLATOR_RANGE;  // Interval strategy
+INPUT2 uint Meta_Time_Strategy_MinutesEach = 15;                            // Interval per minute
+INPUT2 uint Meta_Time_Strategy_MinutesAfter = 5;                            // Minutes after interval
+INPUT2 uint Meta_Time_Strategy_MinutesBefore = 5;                           // Minutes before interval
+INPUT3_GROUP("Meta Time strategy: common params");
+INPUT3 float Meta_Time_LotSize = 0;                // Lot size
+INPUT3 int Meta_Time_SignalOpenMethod = 0;         // Signal open method
+INPUT3 float Meta_Time_SignalOpenLevel = 0;        // Signal open level
+INPUT3 int Meta_Time_SignalOpenFilterMethod = 32;  // Signal open filter method
+INPUT3 int Meta_Time_SignalOpenFilterTime = 3;     // Signal open filter time (0-31)
+INPUT3 int Meta_Time_SignalOpenBoostMethod = 0;    // Signal open boost method
+INPUT3 int Meta_Time_SignalCloseMethod = 0;        // Signal close method
+INPUT3 int Meta_Time_SignalCloseFilter = 32;       // Signal close filter (-127-127)
+INPUT3 float Meta_Time_SignalCloseLevel = 0;       // Signal close level
+INPUT3 int Meta_Time_PriceStopMethod = 1;          // Price limit method
+INPUT3 float Meta_Time_PriceStopLevel = 2;         // Price limit level
+INPUT3 int Meta_Time_TickFilterMethod = 32;        // Tick filter method (0-255)
+INPUT3 float Meta_Time_MaxSpread = 4.0;            // Max spread to trade (in pips)
+INPUT3 short Meta_Time_Shift = 0;                  // Shift
+INPUT3 float Meta_Time_OrderCloseLoss = 200;       // Order close loss
+INPUT3 float Meta_Time_OrderCloseProfit = 200;     // Order close profit
+INPUT3 int Meta_Time_OrderCloseTime = 720;         // Order close time in mins (>0) or bars (<0)
 
 // Structs.
 
@@ -73,11 +73,8 @@ class Stg_Meta_Time : public Strategy {
    * Event on strategy's init.
    */
   void OnInit() {
-    StrategyAdd(Meta_Time_Strategy_1_Monday, 1);
-    StrategyAdd(Meta_Time_Strategy_2_Tuesday, 2);
-    StrategyAdd(Meta_Time_Strategy_3_Wednesday, 3);
-    StrategyAdd(Meta_Time_Strategy_4_Thursday, 4);
-    StrategyAdd(Meta_Time_Strategy_5_Friday, 5);
+    StrategyAdd(Meta_Time_Strategy_Main, 0);
+    StrategyAdd(Meta_Time_Strategy_Interval, 1);
   }
 
   /**
@@ -287,6 +284,14 @@ class Stg_Meta_Time : public Strategy {
   /**
    * Gets price stop value.
    */
+  Ref<Strategy> GetStrategyPerInterval() {
+    Ref<Strategy> _strat_ref = strats.GetByKey(0);
+    return _strat_ref;
+  }
+
+  /**
+   * Gets price stop value.
+   */
   float PriceStop(ENUM_ORDER_TYPE _cmd, ENUM_ORDER_TYPE_VALUE _mode, int _method = 0, float _level = 0.0f,
                   short _bars = 4) {
     float _result = 0;
@@ -294,7 +299,7 @@ class Stg_Meta_Time : public Strategy {
       // Ignores calculation when method is 0.
       return (float)_result;
     }
-    Ref<Strategy> _strat_ref = strats.GetByKey(DateTimeStatic::DayOfWeek());
+    Ref<Strategy> _strat_ref = GetStrategyPerInterval();
     if (!_strat_ref.IsSet()) {
       // Returns false when strategy is not set.
       return false;
@@ -311,7 +316,7 @@ class Stg_Meta_Time : public Strategy {
    */
   bool SignalOpen(ENUM_ORDER_TYPE _cmd, int _method, float _level = 0.0f, int _shift = 0) {
     bool _result = true;  // strats.Size() > 0;
-    Ref<Strategy> _strat_ref = strats.GetByKey(DateTimeStatic::DayOfWeek());
+    Ref<Strategy> _strat_ref = GetStrategyPerInterval();
     if (!_strat_ref.IsSet()) {
       // Returns false when strategy is not set.
       return false;
