@@ -1,6 +1,6 @@
 /**
  * @file
- * Implements Weekday meta strategy.
+ * Implements Interval meta strategy.
  */
 
 // Includes conditional compilation directives.
@@ -28,19 +28,19 @@
 #endif
 
 // Inputs.
-input int Active_Tfs = M15B + M30B + H1B + H2B + H3B + H4B + H6B +
+input int Active_Tfs = M5B + M15B + M30B + H1B + H2B + H3B + H4B + H6B +
                        H8B;               // Timeframes (M1=1,M2=2,M5=16,M15=256,M30=1024,H1=2048,H2=4096,H3,H4,H6,H8)
 input ENUM_LOG_LEVEL Log_Level = V_INFO;  // Log level.
 input bool Info_On_Chart = true;          // Display info on chart.
 
 // Includes strategy class.
-#include "Stg_Meta_Weekday.mqh"
+#include "Stg_Meta_Interval.mqh"
 
 // Defines.
-#define ea_name "Strategy Meta Weekday"
+#define ea_name "Strategy Meta Interval"
 #define ea_version "2.000"
-#define ea_desc "Meta strategy to run different strategies in the different market time zones."
-#define ea_link "https://github.com/EA31337/Strategy-Meta_Weekday"
+#define ea_desc "Meta strategy to run different strategy at given minute-based intervals."
+#define ea_link "https://github.com/EA31337/Strategy-Meta_Interval"
 #define ea_author "EA31337 Ltd"
 
 // Properties.
@@ -66,7 +66,7 @@ int OnInit() {
   bool _result = true;
   EAParams ea_params(__FILE__, Log_Level);
   ea = new EA(ea_params);
-  _result &= ea.StrategyAdd<Stg_Meta_Weekday>(Active_Tfs);
+  _result &= ea.StrategyAdd<Stg_Meta_Interval>(Active_Tfs);
   return (_result ? INIT_SUCCEEDED : INIT_FAILED);
 }
 

@@ -6,8 +6,8 @@
 
 /**
  * @file
- * Implements Weekday meta strategy.
+ * Implements Interval meta strategy.
  */
 
 // Includes the main code.
-#include "Stg_Meta_Weekday.mq5"
+#include "Stg_Meta_Interval.mq5"
