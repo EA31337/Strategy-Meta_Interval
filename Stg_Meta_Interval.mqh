@@ -9,11 +9,11 @@
 
 // User input params.
 INPUT2_GROUP("Meta Interval strategy: main params");
-INPUT2 ENUM_STRATEGY Meta_Interval_Strategy_Main = STRAT_OSCILLATOR_RANGE;      // Main strategy
+INPUT2 ENUM_STRATEGY Meta_Interval_Strategy_Main = STRAT_WPR;                   // Main strategy
 INPUT2 ENUM_STRATEGY Meta_Interval_Strategy_Interval = STRAT_OSCILLATOR_RANGE;  // Interval strategy
 INPUT2 ushort Meta_Interval_Strategy_MinutesEach = 15;                          // Interval per minute
-INPUT2 ushort Meta_Interval_Strategy_MinutesAfter = 5;                          // Minutes after interval
-INPUT2 ushort Meta_Interval_Strategy_MinutesBefore = 5;                         // Minutes before interval
+INPUT2 ushort Meta_Interval_Strategy_MinutesAfter = 2;                          // Minutes after interval
+INPUT2 ushort Meta_Interval_Strategy_MinutesBefore = 2;                         // Minutes before interval
 INPUT3_GROUP("Meta Interval strategy: common params");
 INPUT3 float Meta_Interval_LotSize = 0;                // Lot size
 INPUT3 int Meta_Interval_SignalOpenMethod = 0;         // Signal open method
@@ -31,7 +31,7 @@ INPUT3 float Meta_Interval_MaxSpread = 4.0;            // Max spread to trade (i
 INPUT3 short Meta_Interval_Shift = 0;                  // Shift
 INPUT3 float Meta_Interval_OrderCloseLoss = 200;       // Order close loss
 INPUT3 float Meta_Interval_OrderCloseProfit = 200;     // Order close profit
-INPUT3 int Meta_Interval_OrderCloseTime = 720;         // Order close time in mins (>0) or bars (<0)
+INPUT3 int Meta_Interval_OrderCloseTime = 1440;        // Order close time in mins (>0) or bars (<0)
 
 // Structs.
 
