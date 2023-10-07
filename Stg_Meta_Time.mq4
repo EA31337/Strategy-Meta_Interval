@@ -10,4 +10,4 @@
  */
 
 // Includes the main code.
-#include "Stg_Meta_Weekday.mq5"
+#include "Stg_Meta_Time.mq5"
