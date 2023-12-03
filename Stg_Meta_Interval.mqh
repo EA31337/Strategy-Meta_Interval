@@ -9,8 +9,8 @@
 
 // User input params.
 INPUT2_GROUP("Meta Interval strategy: main params");
-INPUT2 ENUM_STRATEGY Meta_Interval_Strategy_Main = STRAT_BANDS;      // Main strategy
-INPUT2 ENUM_STRATEGY Meta_Interval_Strategy_Interval = STRAT_GATOR;  // Interval strategy
+INPUT2 ENUM_STRATEGY Meta_Interval_Strategy_Main = STRAT_RSI;        // Main strategy
+INPUT2 ENUM_STRATEGY Meta_Interval_Strategy_Interval = STRAT_BANDS;  // Interval strategy
 INPUT2 ushort Meta_Interval_Strategy_MinutesEach = 15;               // Interval per minute
 INPUT2 ushort Meta_Interval_Strategy_MinutesAfter = 2;               // Minutes after interval
 INPUT2 ushort Meta_Interval_Strategy_MinutesBefore = 2;              // Minutes before interval
