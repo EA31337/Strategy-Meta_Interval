@@ -13,7 +13,7 @@ Time meta strategy to run different strategy at given minute-based intervals.
 
 | Tag      | Framework | Strategies |
 |:--------:|:---------:|:----------:|
-| v2.000   | v3.000.1  | v2.000     |
+| v2.000   | v3.000.2  | v2.000     |
 
 <!-- Named links -->
 
